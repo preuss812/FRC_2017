@@ -1,5 +1,9 @@
 package org.usfirst.frc812.BB9.subsystems;
 
+import java.util.ArrayList;
+
+import org.opencv.core.MatOfPoint;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc812.BB9.Robot;
 import org.usfirst.frc812.BB9.RobotMap;
 import org.usfirst.frc812.BB9.commands.CameraFrontBack;
@@ -71,6 +75,11 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println("avg bits=" + RobotMap.ultraSensor.getAverageBits() + " LSBWeight=" + RobotMap.ultraSensor.getLSBWeight());
     	double potVolts = RobotMap.analogPot.getVoltage();
     	System.out.println("Pot: mV=" + potVolts + " d(cm)=" + potVolts*4.9*1000.0);
+    	System.out.println("IMU Pitch:" + Robot.imu.getPitch() + " Yaw: " + Robot.imu.getYaw() + " Roll: " + Robot.imu.getRoll());
+    	System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
+    	
+    	//for ()
+    	//System.out.println("Center X: " + Robot.centerX); // Determined by the GRIP pipeline
     }
     
     public double getPotValue(int axis) {

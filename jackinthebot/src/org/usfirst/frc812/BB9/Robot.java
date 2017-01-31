@@ -14,6 +14,7 @@ package org.usfirst.frc812.BB9;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
@@ -31,6 +32,7 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc812.BB9.commands.*;
 import org.usfirst.frc812.BB9.pipelines.MidGripPipeline;
 import org.usfirst.frc812.BB9.subsystems.*;
+import org.usfirst.frc812.BB9.sensors.*;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
@@ -62,6 +64,7 @@ public class Robot extends IterativeRobot {
     public static GathererMotorSubsystem gathererMotorSubsystem;
     public static GrabberSensorSubsystem grabberSensorSubsystem;
     public static ADIS16448_IMU imu;
+    public static LIDAR lidar;
     
 
     	private static final int IMG_WIDTH = 320;
@@ -94,6 +97,8 @@ public class Robot extends IterativeRobot {
         controlBoxSubsystem = new ControlBoxSubsystem();
         gathererMotorSubsystem = new GathererMotorSubsystem();
         grabberSensorSubsystem = new GrabberSensorSubsystem();
+        lidar = new LIDAR(Port.kOnboard);
+        lidar.start(500);
 
         cameraControl = new CameraControl();
         cameraServer = CameraServer.getInstance();
@@ -205,5 +210,9 @@ public class Robot extends IterativeRobot {
 
 	public void setCenterX(double centerX) {
 		this.centerX = centerX;
+	}
+	
+	public double getLIDARDistance() {
+		return lidar.getDistance();
 	}
 }

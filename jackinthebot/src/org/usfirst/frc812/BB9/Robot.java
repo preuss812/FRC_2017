@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionPipeline;
 import edu.wpi.first.wpilibj.vision.VisionThread;
+import edu.wpi.first.wpilibj.SerialPort;
+
 
 import java.util.ArrayList;
 
@@ -65,6 +67,7 @@ public class Robot extends IterativeRobot {
     public static GrabberSensorSubsystem grabberSensorSubsystem;
     public static ADIS16448_IMU imu;
     public static LIDAR lidar;
+    public static SerialLidar slidar;
     
 
     	private static final int IMG_WIDTH = 320;
@@ -97,9 +100,11 @@ public class Robot extends IterativeRobot {
         controlBoxSubsystem = new ControlBoxSubsystem();
         gathererMotorSubsystem = new GathererMotorSubsystem();
         grabberSensorSubsystem = new GrabberSensorSubsystem();
-        lidar = new LIDAR(Port.kOnboard);
-        lidar.start(500);
-
+ //       lidar = new LIDAR(Port.kMXP);
+       // lidar.start(2000);
+        slidar = new SerialLidar(115200,SerialPort.Port.kOnboard);
+        slidar.start(100);
+        
         cameraControl = new CameraControl();
         cameraServer = CameraServer.getInstance();
 //        cameraServer.setQuality(50);

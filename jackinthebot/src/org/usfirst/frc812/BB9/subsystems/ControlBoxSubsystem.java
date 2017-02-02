@@ -77,7 +77,7 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println("Pot: mV=" + potVolts + " d(cm)=" + potVolts*4.9*1000.0);
     	System.out.println("IMU Pitch:" + Robot.imu.getPitch() + " Yaw: " + Robot.imu.getYaw() + " Roll: " + Robot.imu.getRoll());
     	System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
-    	System.out.println("LIDAR distance: " + Robot.lidar.getDistance());
+    	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
     	//for ()
     	//System.out.println("Center X: " + Robot.centerX); // Determined by the GRIP pipeline
     }

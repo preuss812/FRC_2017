@@ -13,7 +13,7 @@ public class LIDAR {
 	private final int LIDAR_ADDR = 0x62; // Default I2C device 0 address is 0x62
 	private final int LIDAR_CONFIG_REGISTER = 0x00;
 	private final int LIDAR_DISTANCE_REGISTER = 0x8f;
-	private final int LIDAR_DEFAULT_SCAN_RATE_MS = 100;
+	private final int LIDAR_DEFAULT_SCAN_RATE_MS = 2000;
 	private final int LIDAR_ACQ_COMMAND_DIST_W_BIAS = 0x04;
 	private java.util.Timer updater;
 	
@@ -21,6 +21,7 @@ public class LIDAR {
 	
 	public LIDAR(Port port)
 	{
+		System.out.println("LIDAR (port, addr): " + port.value + ", " + LIDAR_ADDR);
 		i2c = new I2C(port, LIDAR_ADDR);
 		distance = new byte[2];
 		lastUpdateTime = System.currentTimeMillis();
@@ -47,6 +48,23 @@ public class LIDAR {
 	
 	public int getDistance()
 	{
+		byte[] reg1 = new byte[1];
+		int count = 0;
+		reg1[0] =  (byte) 0xff;
+		
+		i2c.write(0x02, 0x80);
+		i2c.write(0x04, 0x08);
+		i2c.write(0x1c, 0x00);
+
+		i2c.write(0x00, 0x04);
+		System.out.println("Reg value before: " + reg1[0]);
+		while ((reg1[0] & 0x1) == 1) {
+			i2c.read(0x01, 1, reg1);
+			Timer.delay(0.01);
+			count++;
+		}
+		System.out.println("Count exit: " + count + "reg1: " + Integer.toBinaryString((int) reg1[0]) + " " + Integer.toBinaryString((int) (reg1[0]&0x1)));
+		i2c.read(0x8f, 2, distance);
 		return (int) Integer.toUnsignedLong(distance[0] << 8) + Byte.toUnsignedInt(distance[1]);
 	}
 	
@@ -60,13 +78,25 @@ public class LIDAR {
 		
 		if(System.currentTimeMillis() - lastUpdateTime >= LIDAR_DEFAULT_SCAN_RATE_MS)
 		{
-			i2c.write(LIDAR_CONFIG_REGISTER, LIDAR_ACQ_COMMAND_DIST_W_BIAS);
+			if( !i2c.read(0x16, 2, reg1) ) {
+				System.out.println("LIDAR: serial number read failed");
+			}
+			System.out.println("LIDAR 0x16 value: " + reg1[0] + ", " + reg1[1]);
+			Timer.delay(0.10);
+
+			if( ! i2c.write(LIDAR_CONFIG_REGISTER, LIDAR_ACQ_COMMAND_DIST_W_BIAS) ) {
+				System.out.println("LIDAR: write to " + LIDAR_CONFIG_REGISTER + " VALUE: " + LIDAR_ACQ_COMMAND_DIST_W_BIAS + " FAILED" );
+			}
 			Timer.delay(0.10); // usually 0.04
-			i2c.read(0x01, 2, reg1);
+/*			i2c.read(0x01, 2, reg1);
 			System.out.println("LIDAR 0x01 values: " + 
 					Integer.toUnsignedLong(reg1[0] << 8) + 
 					" " + Byte.toUnsignedInt(reg1[1]));
-			i2c.read(LIDAR_DISTANCE_REGISTER, 2, distance);
+*/				
+			
+			if( ! i2c.read(LIDAR_DISTANCE_REGISTER, 2, distance) ) {
+				System.out.println("LIDAR: Read Distance failed");
+			}
 			Timer.delay(0.005);
 			lastUpdateTime = System.currentTimeMillis();
 			return true;

@@ -42,10 +42,10 @@ public class RobotMap {
     public static SpeedController driveTrainRtBack;
     public static SpeedController driveTrainLftFront;
     public static SpeedController driveTrainLftBack;
-    public static SpeedController dtSrxRightFront;
-    public static SpeedController dtSrxRightRear;
-    public static SpeedController dtSrxLeftFront;
-    public static SpeedController dtSrxLeftRear;
+    public static SpeedController dtRight2;
+    public static SpeedController dtRight1;
+    public static SpeedController dtLeft2;
+    public static SpeedController dtLeft1;
     public static SpeedController gathererMotor;
     public static RobotDrive dtProtoRobotDrive;
     public static RobotDrive dtProductionRobotDrive;
@@ -100,12 +100,20 @@ public class RobotMap {
     	
     	
         // Production robot uses CAN bus Talon SRX speed controllers
-        dtSrxRightFront = new CANTalon(2);
-        dtSrxRightRear  = new CANTalon(3);
-        dtSrxLeftFront  = new CANTalon(4);
-        dtSrxLeftRear   = new CANTalon(5);
-        dtProductionRobotDrive = new RobotDrive(dtSrxLeftFront, dtSrxLeftRear, 
-        										dtSrxRightFront, dtSrxRightRear);
+    	dtLeft1 = new CANTalon(2);
+    	dtLeft2 = new CANTalon(3);
+        dtRight1 = new CANTalon(4);
+        dtRight2 = new CANTalon(5);
+        dtLeft1.setInverted(true);
+        dtLeft2.setInverted(true);
+        dtRight1.setInverted(true);
+        dtRight2.setInverted(true);
+
+        
+        // front left, rear left, front right, rear right
+        dtProductionRobotDrive = new RobotDrive(dtLeft1, dtLeft2, 
+        		dtRight1, dtRight2);
+
         dtProductionRobotDrive.setSafetyEnabled(true);
         dtProductionRobotDrive.setExpiration(0.1);
         dtProductionRobotDrive.setSensitivity(0.5);
@@ -129,7 +137,7 @@ public class RobotMap {
       cameraHorizontal = new Servo(9);
       cameraVertical = new Servo(8);
       
-      grabberSensor = new DigitalInput(0);
+      grabberSensor = new DigitalInput(5);
       
     }
 }

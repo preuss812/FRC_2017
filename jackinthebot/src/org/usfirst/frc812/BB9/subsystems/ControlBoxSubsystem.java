@@ -8,6 +8,7 @@ import org.usfirst.frc812.BB9.Robot;
 import org.usfirst.frc812.BB9.RobotMap;
 import org.usfirst.frc812.BB9.commands.CameraFrontBack;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -56,13 +57,15 @@ public class ControlBoxSubsystem extends Subsystem {
     }
     public void printBits() {
     	readBits();
-    	System.out.println("ControlBox bits: " + Integer.toBinaryString(flagBits));
+    	/*System.out.println("ControlBox bits: " + Integer.toBinaryString(flagBits));
     	String prespace = "";
     	System.out.print("Switches: ");
     	for (int i = 1; i<=7; i++) {
     		System.out.print(prespace + i + "=" + (isSet(i) ? "on":"off"));
     		prespace = " ";
-    	}
+    	*/
+    	//}
+    	
     	System.out.println("");
     	System.out.println("ControlBox pot 0:  " + getPotValue(0));
     	System.out.println("ControlBox pot 1:  " + getPotValue(1));
@@ -80,6 +83,31 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
     	//for ()
     	//System.out.println("Center X: " + Robot.centerX); // Determined by the GRIP pipeline
+    	
+
+    	Robot.imu.getRateX();
+        System.out.println("Rate: " + Robot.imu.getRate());  
+        System.out.println("Rate x: " + Robot.imu.getRateX()); 
+        System.out.println("Rate y: " + Robot.imu.getRateY());
+        System.out.println("Rate z: " + Robot.imu.getRateZ());
+    	
+        // Encoder readings
+//        System.out.println("------------------------------------");
+//        System.out.println("Left Wheel");
+//    	Encoder leftWheelEncoder = Robot.drivelineSubsystem.getLeftEncoder();
+//    	Encoder rightWheelEncoder = Robot.drivelineSubsystem.getRightEncoder();
+//		System.out.println("  dir: "+leftWheelEncoder.getDirection()+", dist: " + leftWheelEncoder.getDistance()+ ", rate: "+leftWheelEncoder.getRate());
+//    	System.out.println("Right Wheel");
+//		System.out.println("  dir: "+rightWheelEncoder.getDirection()+", dist: " + rightWheelEncoder.getDistance()+ ", rate: "+rightWheelEncoder.getRate());
+   
+        
+        
+    	/*System.out.println(x);
+    	Robot.imu.getBarometricPressure();
+    	System.out.println(x);
+    	Robot.imu.getRoll();
+    	System.out.println(x);
+    	*/
     }
     
     public double getPotValue(int axis) {

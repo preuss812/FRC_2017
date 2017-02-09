@@ -12,9 +12,9 @@ public class ShootSequenceCommand extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
-    	addSequential(new BallGathererDownAndLock());
+    	//addSequential(new BallGathererDownAndLock());
     	addSequential(new ShootCommand());
-    	addSequential(new BallGathererUnlock());
+//    	//addSequential(new BallGathererUnlock());
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());

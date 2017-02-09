@@ -18,13 +18,14 @@ public class ShootCommand extends Command {
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		System.out.println("---> ShootCommand.initialized");
-		if ( !Robot.grabberSensorSubsystem.get() ){
-			Robot.doubleShooterSubsystem.releaseCatapult();
-		}
+		//if ( !Robot.grabberSensorSubsystem.get() ){
+		//Robot.doubleShooterSubsystem.releaseCatapult();
+		//}
 	}
 
 	@Override
 	protected void execute() {
+		Robot.doubleShooterSubsystem.toggle();
 	}
 
 	@Override
@@ -36,14 +37,14 @@ public class ShootCommand extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		Robot.doubleShooterSubsystem.retractCatapult();
+		//Robot.doubleShooterSubsystem.retractCatapult();
 		System.out.println("----> ShootCommand.end");
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		end();
+		//end();
 
 	}
 

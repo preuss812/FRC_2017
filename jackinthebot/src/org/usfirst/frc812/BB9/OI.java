@@ -82,7 +82,7 @@ public class OI {
         gathererMotorStart = new JoystickButton(leftJoystick,4);
          
         cameraFrontBackButton.toggleWhenPressed(new CameraFrontBack());
-        shootButton.whenPressed(new ShootSequenceCommand());
+        shootButton.whenPressed(new ShootCommand());
         raiseLowerBallGathererButton.toggleWhenPressed(new BallGatherer());
         controlboxPrintData.whenPressed(new ControlBoxCommand());
         

@@ -53,6 +53,26 @@ public class DoubleShooterSubsystem extends Subsystem {
     	shooterRight.set(DoubleSolenoid.Value.kForward);
     	System.out.println("retractCatapult");
     }
+    
+    public void toggle() {
+    	DoubleSolenoid.Value leftValue = shooterLeft.get();
+    	
+    	switch (leftValue) {
+	      case kOff:
+	    	  System.out.println("shooter is OFF");
+	    	  shooterLeft.set(DoubleSolenoid.Value.kForward);
+	        break;
+	      case kForward:
+	    	  System.out.println("shooter is Forward");
+	    	  shooterLeft.set(DoubleSolenoid.Value.kReverse);
+	        break;
+	      case kReverse:
+	    	  System.out.println("shooter is Reverse");
+	    	  shooterLeft.set(DoubleSolenoid.Value.kForward);
+	        break;
+	    }
+    
+    }
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

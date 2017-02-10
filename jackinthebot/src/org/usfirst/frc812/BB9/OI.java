@@ -55,7 +55,7 @@ public class OI {
     public Joystick leftJoystick;
     public Joystick rightJoystick;
     
-    public Button shootButton;
+    public Button gearShiftButton;
     public Button cameraFrontBackButton;
     public Button controlboxPrintData;
     public Button raiseLowerBallGathererButton;
@@ -77,12 +77,12 @@ public class OI {
         
         
         // Left Joystick buttons
-        shootButton            = new JoystickButton(leftJoystick,3);
+        gearShiftButton            = new JoystickButton(leftJoystick,3);
         raiseLowerBallGathererButton = new JoystickButton(leftJoystick,2);
         gathererMotorStart = new JoystickButton(leftJoystick,4);
          
         cameraFrontBackButton.toggleWhenPressed(new CameraFrontBack());
-        shootButton.whenPressed(new ShootCommand());
+        gearShiftButton.whenPressed(new ShiftGearsCommand());
         raiseLowerBallGathererButton.toggleWhenPressed(new BallGatherer());
         controlboxPrintData.whenPressed(new ControlBoxCommand());
         

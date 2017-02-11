@@ -28,9 +28,7 @@ public class ShiftGearsCommand extends Command {
 
 	@Override
 	protected void execute() {
-		//if(isTimedOut()) {
 		Robot.gearBoxSubsystem.toggle();
-		//}
 	}
 
 	@Override

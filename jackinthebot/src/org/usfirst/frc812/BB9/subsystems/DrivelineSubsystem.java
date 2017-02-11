@@ -12,7 +12,7 @@ public class DrivelineSubsystem extends Subsystem {
 		leftEnc = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
 		rightEnc = new Encoder(2, 3, false, Encoder.EncodingType.k4X);
 		setDefaultValues(leftEnc);
-//		setDefaultValues(rightEnc);
+		setDefaultValues(rightEnc);
 	}
 	
 	@Override

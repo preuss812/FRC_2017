@@ -1,7 +1,9 @@
 package org.usfirst.frc812.BB9.subsystems;
 
+import org.usfirst.frc812.BB9.Robot;
 import org.usfirst.frc812.BB9.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -35,6 +37,11 @@ public class GearBoxSubsystem extends Subsystem {
 	 }
     
     public void toggle() {
+    	Encoder leftEncoder = Robot.drivelineSubsystem.getLeftEncoder();
+    	Encoder rightEncoder = Robot.drivelineSubsystem.getRightEncoder();
+    	System.out.println("Left encoder rate =" +leftEncoder.getRate());
+    	System.out.println("Right encoder rate =" +rightEncoder.getRate());
+    	
     	DoubleSolenoid.Value leftValue = shifterSolenoid.get();
     	
     	switch (leftValue) {

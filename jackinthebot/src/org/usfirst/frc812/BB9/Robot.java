@@ -217,6 +217,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		// SmartDashboard.putData("IMU", imu); // TODO: remove me
 		Scheduler.getInstance().run();
+	//	System.out.println("teleop periodic was called");
 	}
 
 	/**

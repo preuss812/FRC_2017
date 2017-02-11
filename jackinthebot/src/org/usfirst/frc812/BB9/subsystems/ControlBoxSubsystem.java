@@ -10,6 +10,7 @@ import org.usfirst.frc812.BB9.commands.CameraFrontBack;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.ButtonType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -67,8 +68,6 @@ public class ControlBoxSubsystem extends Subsystem {
     	//}
     	
     	System.out.println("");
-    	System.out.println("ControlBox pot 0:  " + getPotValue(0));
-    	System.out.println("ControlBox pot 1:  " + getPotValue(1));
     	System.out.println("Intake position via switch sensor: " + (Robot.grabberSensorSubsystem.get() ? "In":"Out"));
     	System.out.println("Gyro angle: " + RobotMap.gyro.getAngle() );
     	System.out.println("Camera position: "+ (CameraFrontBack.forward ? "Front":"Back"));
@@ -81,6 +80,10 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println("IMU Pitch:" + Robot.imu.getPitch() + " Yaw: " + Robot.imu.getYaw() + " Roll: " + Robot.imu.getRoll());
     	System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
     	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
+
+    	System.out.println("Left encoder rate =" +Robot.drivelineSubsystem.getLeftEncoder().getRate());
+    	System.out.println("Right encoder rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
+    	
     	//for ()
     	//System.out.println("Center X: " + Robot.centerX); // Determined by the GRIP pipeline
     	
@@ -100,7 +103,14 @@ public class ControlBoxSubsystem extends Subsystem {
 //    	System.out.println("Right Wheel");
 //		System.out.println("  dir: "+rightWheelEncoder.getDirection()+", dist: " + rightWheelEncoder.getDistance()+ ", rate: "+rightWheelEncoder.getRate());
    
-        
+
+    	System.out.println("ControlBox pot 0:  " + getPotValue(0));
+    	System.out.println("ControlBox pot 1:  " + getPotValue(1));
+
+    	//System.out.println("control box 2:" + getPotValue(2));
+
+		System.out.println("gear switch Button 4:" + cb.getRawButton(4));
+
         
     	/*System.out.println(x);
     	Robot.imu.getBarometricPressure();

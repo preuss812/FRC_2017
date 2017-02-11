@@ -83,10 +83,10 @@ public class AutonomousCommand extends Command {
         	System.out.println("Auto: switch 4 timeout");
         	setTimeout(7.0);
         } 
-        else if(Robot.controlBoxSubsystem.isSet(5))	{	//Moats
-        	System.out.println("Auto: switch 5 timeout");
-        	setTimeout(7.0);
-        }
+//        else if(Robot.controlBoxSubsystem.isSet(5))	{	//Moats
+//        	System.out.println("Auto: switch 5 timeout");
+//        	setTimeout(7.0);
+//        }
         else if(Robot.controlBoxSubsystem.isSet(6)) {		//Cheval
         	System.out.println("Auto: switch 6 timeout");
         	setTimeout(7.0);

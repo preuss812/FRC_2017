@@ -36,6 +36,15 @@ public class GearBoxSubsystem extends Subsystem {
 	    	shifterSolenoid.set(DoubleSolenoid.Value.kOff);
 	 }
     
+	 
+	public void lowgear() {   // set gear to low 
+		shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
+		
+	}
+	public void highgear() { 
+		shifterSolenoid.set(DoubleSolenoid.Value.kForward);
+	}
+	 
     public void toggle() {
     	Encoder leftEncoder = Robot.drivelineSubsystem.getLeftEncoder();
     	Encoder rightEncoder = Robot.drivelineSubsystem.getRightEncoder();

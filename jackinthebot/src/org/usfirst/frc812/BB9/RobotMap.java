@@ -61,6 +61,7 @@ public class RobotMap {
     public static AnalogGyro gyro; 
     public static Joystick controlBox;
     public static DigitalInput grabberSensor;
+    	
     
     //ultrasonic sensor
     public static AnalogInput ultraSensor;

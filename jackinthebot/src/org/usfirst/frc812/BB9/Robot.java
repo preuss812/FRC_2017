@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -218,6 +219,19 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putData("IMU", imu); // TODO: remove me
 		Scheduler.getInstance().run();
 	//	System.out.println("teleop periodic was called");
+		
+		//If switch (4) is up then regular speed 
+		//else down then faster 
+		
+		Joystick cb = 	RobotMap.controlBox; 
+		boolean on = cb.getRawButton(4);
+		
+		if (on) {
+			Robot.gearBoxSubsystem.highgear();
+		} else {      //setting the gearbox subsystem to second gear 
+			
+			Robot.gearBoxSubsystem.lowgear(); 
+		}
 	}
 
 	/**

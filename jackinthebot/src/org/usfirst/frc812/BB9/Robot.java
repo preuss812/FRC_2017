@@ -80,7 +80,6 @@ public class Robot extends IterativeRobot {
 
 	private final Object imgLock = new Object();
 
-	private Encoder leftEnc;
 	// GRIP network table
 	// private final NetworkTable grip = NetworkTable.getTable("grip");
 
@@ -111,14 +110,6 @@ public class Robot extends IterativeRobot {
 		// only here for testing initial connection to the wheel  encoders while we have no
 		// joysticks hooked up
 			
-		System.out.println("------------------------------------");
-		System.out.println("Left Wheel"); 
-		Encoder leftWheelEncoder = drivelineSubsystem.getLeftEncoder();
-		Encoder rightWheelEncoder = drivelineSubsystem.getRightEncoder();
-		System.out.println("  dir: "+leftWheelEncoder.getDirection()+", dist: " + leftWheelEncoder.getDistance()+ ", rate: "+leftWheelEncoder.getRate());
-		System.out.println("Right Wheel");
-		System.out.println("  dir: "+rightWheelEncoder.getDirection()+", dist: " + rightWheelEncoder.getDistance()+ ", rate: "+rightWheelEncoder.getRate());
-		
 	
 		// lidar = new LIDAR(Port.kMXP);
 		// lidar.start(2000);

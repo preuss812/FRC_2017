@@ -81,8 +81,7 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
     	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
 
-    	System.out.println("Left encoder rate =" +Robot.drivelineSubsystem.getLeftEncoder().getRate());
-    	System.out.println("Right encoder rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
+    	
     	
     	//for ()
     	//System.out.println("Center X: " + Robot.centerX); // Determined by the GRIP pipeline
@@ -118,6 +117,26 @@ public class ControlBoxSubsystem extends Subsystem {
     	Robot.imu.getRoll();
     	System.out.println(x);
     	*/
+		
+
+//    	System.out.println("Right encoder:");
+//    	System.out.println("  count =" +Robot.drivelineSubsystem.getRightEncoder().get());
+//    	System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
+//    	System.out.println("  stopped =" +Robot.drivelineSubsystem.getRightEncoder().getStopped());
+//    	System.out.println("  direction =" +Robot.drivelineSubsystem.getRightEncoder().getDirection());
+//    	System.out.println("  distance =" +Robot.drivelineSubsystem.getRightEncoder().getDistance());
+//    	
+//    	
+//		System.out.println("Left encoder:");	
+//		System.out.println("  count =" +Robot.drivelineSubsystem.getLeftEncoder().get());
+//		System.out.println("  rate =" +Robot.drivelineSubsystem.getLeftEncoder().getRate());
+//    	System.out.println("  stopped =" +Robot.drivelineSubsystem.getLeftEncoder().getStopped());
+//    	System.out.println("  direction =" +Robot.drivelineSubsystem.getLeftEncoder().getDirection());
+//    	System.out.println("  distance =" +Robot.drivelineSubsystem.getLeftEncoder().getDistance());
+
+
+    	System.out.println("  counter =" +Robot.drivelineSubsystem.leftCounter.get());
+
     }
     
     public double getPotValue(int axis) {

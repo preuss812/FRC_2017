@@ -13,26 +13,26 @@ public class GearBoxSubsystem extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	 DoubleSolenoid shifterSolenoid = RobotMap.shootLeft;
+	 DoubleSolenoid shifterSolenoid = RobotMap.shifter;
 	
 	 public DoubleSolenoid.Value getShooterState() {
 		 DoubleSolenoid.Value leftValue = shifterSolenoid.get();
 			 
 		 switch (leftValue) {
 	      case kOff:
-	    	  System.out.println("shooter is OFF");
+	    	  System.out.println("shifter is OFF");
 	        break;
-	      case kForward:
-	    	  System.out.println("shooter is Forward");
+	      case kForward: // kForward is high speed
+	   	  System.out.println("robot is going at high speed");
 	        break;
-	      case kReverse:
-	    	  System.out.println("shooter is Reverse");
+	      case kReverse: // kReverse is low speed
+	      System.out.println("robot is going at low speed");
 	        break;
 	    }
 		 return leftValue;
 	 }
 	 
-	 public void shootersOff() {
+	 public void shiftersOff() {
 	    	shifterSolenoid.set(DoubleSolenoid.Value.kOff);
 	 }
     
@@ -46,24 +46,20 @@ public class GearBoxSubsystem extends Subsystem {
 	}
 	 
     public void toggle() {
-    	Encoder leftEncoder = Robot.drivelineSubsystem.getLeftEncoder();
-    	Encoder rightEncoder = Robot.drivelineSubsystem.getRightEncoder();
-    	System.out.println("Left encoder rate =" +leftEncoder.getRate());
-    	System.out.println("Right encoder rate =" +rightEncoder.getRate());
-    	
+    
     	DoubleSolenoid.Value leftValue = shifterSolenoid.get();
     	
     	switch (leftValue) {
 	      case kOff:
-	    	  System.out.println("shooter is OFF");
+	    	  System.out.println("shifter is OFF");
 	    	  shifterSolenoid.set(DoubleSolenoid.Value.kForward);
 	        break;
 	      case kForward:
-	    	  System.out.println("shooter is Forward");
+	    	  System.out.println("shifter is High Gear");
 	    	  shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
 	        break;
 	      case kReverse:
-	    	  System.out.println("shooter is Reverse");
+	    	  System.out.println("shifter is Low Gear");
 	    	  shifterSolenoid.set(DoubleSolenoid.Value.kForward);
 	        break;
 	    }

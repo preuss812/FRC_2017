@@ -51,7 +51,7 @@ import com.analog.adis16448.frc.ADIS16448_IMU;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot_not_working extends IterativeRobot {
 
 	Command autonomousCommand;
 
@@ -80,11 +80,9 @@ public class Robot extends IterativeRobot {
 	private RobotDrive drive;
 
 	private final Object imgLock = new Object();
-	
-	//  Added two different thresholds to account for hardware lag
-	private static double lowThreshold = 30;	// shift into lower gear if encoder rate is low enough
-    private static double highThreshold = 60;  // shift into higher gear if encoder rate is high enough
-    
+    private static double gearThreashhold = 30;
+    private ShiftGearsCommand shiftGearsCommand;
+    private boolean automaticGearshift = true; 
 	// GRIP network table
 	// private final NetworkTable grip = NetworkTable.getTable("grip");
 
@@ -219,33 +217,46 @@ public class Robot extends IterativeRobot {
 		//If switch (4) is up then regular speed 
 		//else down then faster 
 		
-		Joystick cb = RobotMap.controlBox; 
-		boolean on = cb.getRawButton(4);
-		/*
-		if (on) { // if manual switch is on, shift into high gear/ low speed
-			Robot.gearBoxSubsystem.highgear();
-		} else {      //setting the gearbox subsystem to low gear/high speed
-			
-			Robot.gearBoxSubsystem.lowgear(); 
-		}*/
-		//System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
-		//if ( && rightCounter == );
-		double leftRate = drivelineSubsystem.leftCounter.getRate();
-		double rightRate = drivelineSubsystem.rightCounter.getRate();
-
-		// get the current state of the shifter
-		Value shooterState = Robot.gearBoxSubsystem.getShooterState();
+		Joystick cb = 	RobotMap.controlBox; 
 		
-		// if the rates of left and right counters are both (number) then switch to highgear else lowgear
-		// if we're moving faster or at threshold speed & if shifter state is not in low gear/ high speed
-		if ( (leftRate >= highThreshold && rightRate >= highThreshold) && shooterState != Value.kForward){ 
-				Robot.gearBoxSubsystem.highgear();  // switch into high speed
-			} 
-		else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shooterState != Value.kReverse){      // else if
-				Robot.gearBoxSubsystem.lowgear(); // switched into low speed
+//	    automaticGearshift = false;
+//		
+//		if (automaticGearshift){
+//			System.out.println("automatic gear shift mode on");
+			//System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
+			//if ( && rightCounter == );
+			double leftRate = drivelineSubsystem.leftCounter.getRate();
+			double rightRate = drivelineSubsystem.rightCounter.getRate();
+			// if the rates of left and right counters are both (number) then switch to highgear else lowgear
+			
+			Value shooterState = Robot_not_working.gearBoxSubsystem.getShooterState();
+			if (leftRate >= gearThreashhold & rightRate >= gearThreashhold){
+				if (shooterState != Value.kForward) {
+					Robot_not_working.gearBoxSubsystem.highgear();
+					//shiftGearsCommand.start();
+					
+				}
+			} else {      //setting the gearbox subsystem to second gear 
+				if (shooterState != Value.kReverse) {
+					Robot_not_working.gearBoxSubsystem.lowgear(); 
+					//shiftGearsCommand.start();
+
+				}
 			}
-		//else Robot.gearBoxSubsystem.highgear(); // switched into high gear/ low speed
+		
+//		}
+//		else {
+//			System.out.println("manual gear shift mode on");
+			boolean on = cb.getRawButton(4);
+			if (on) {
+				Robot_not_working.gearBoxSubsystem.highgear();
+			} else {      //setting the gearbox subsystem to second gear 
+				
+				Robot_not_working.gearBoxSubsystem.lowgear(); 
+			}
 		}
+		
+//	}
 
 	/**
 	 * This function is called periodically during test mode

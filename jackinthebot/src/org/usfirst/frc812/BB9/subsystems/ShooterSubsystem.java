@@ -11,7 +11,7 @@ public class ShooterSubsystem extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	 DoubleSolenoid shooter = RobotMap.shooter;
+	 DoubleSolenoid shooter = RobotMap.shifter;
 	
 	 public DoubleSolenoid.Value getShooterState() {
 		 DoubleSolenoid.Value value = shooter.get();

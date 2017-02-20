@@ -16,12 +16,12 @@ public class BallGatherer extends CommandGroup {
 
     public void cancel() {
     	Robot.ballGathererSubsystem.down();
-   		Robot.grabberSensorSubsystem.print();
+   		//Robot.grabberSensorSubsystem.print();
    		started = false;
     }
     public void start() {
    		Robot.ballGathererSubsystem.up();
-   		Robot.grabberSensorSubsystem.print();
+   		//Robot.grabberSensorSubsystem.print();
        	started = true;
     }		
         // To run multiple commands at the same time,

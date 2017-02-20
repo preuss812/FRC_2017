@@ -7,10 +7,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DrivelineSubsystem extends Subsystem {
 
+	public static final double distancePerPulse = .01227;
 	public static Encoder leftEnc;
 	public static Encoder rightEnc;
 	
 	public static Counter leftCounter;
+	public static Counter rightCounter;
 	
 	public DrivelineSubsystem() {
 //		leftEnc = new Encoder(0, 1, false, Encoder.EncodingType.k1X);
@@ -21,11 +23,18 @@ public class DrivelineSubsystem extends Subsystem {
 //		rightEnc.reset();
 		
 		leftCounter = new Counter();
-//		leftCounter = new Counter(2);
-		leftCounter.setUpSource(0);
-		leftCounter.setDownSource(1);
-		leftCounter.setDownSourceEdge(true, false);
-//		leftCounter.setUpDownCounterMode();
+		leftCounter.setUpSource(1);
+		leftCounter.setDownSource(0);
+		leftCounter.setDownSourceEdge(false, true);
+		leftCounter.setUpDownCounterMode();
+		setDefaultValues(leftCounter);
+		
+		rightCounter = new Counter();
+		rightCounter.setUpSource(2);
+		rightCounter.setDownSource(3);
+		rightCounter.setDownSourceEdge(false, true);
+		rightCounter.setUpDownCounterMode();
+		setDefaultValues(rightCounter);
 	}
 	
 	@Override
@@ -34,12 +43,21 @@ public class DrivelineSubsystem extends Subsystem {
 
 	}
 	
-	private void setDefaultValues(Encoder encoder) {
+	public void setDefaultValues(Encoder encoder) {
 		encoder.setMaxPeriod(1);
 		//encoder.setMinRate(10);
-		encoder.setDistancePerPulse(5);
+		encoder.setDistancePerPulse(0.01227);
 		// encoder.setReverseDirection(true);
 		encoder.setSamplesToAverage(4);
+		
+	}
+	
+	public void setDefaultValues(Counter counter) {
+		counter.setMaxPeriod(1);
+		//encoder.setMinRate(10);
+		counter.setDistancePerPulse(0.01227);
+		// encoder.setReverseDirection(true);
+		counter.setSamplesToAverage(4);
 		
 	}
 

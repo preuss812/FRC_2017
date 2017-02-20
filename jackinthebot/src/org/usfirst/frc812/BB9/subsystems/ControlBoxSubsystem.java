@@ -68,7 +68,7 @@ public class ControlBoxSubsystem extends Subsystem {
     	//}
     	
     	System.out.println("");
-    	System.out.println("Intake position via switch sensor: " + (Robot.grabberSensorSubsystem.get() ? "In":"Out"));
+    	//System.out.println("Intake position via switch sensor: " + (Robot.grabberSensorSubsystem.get() ? "In":"Out"));
     	System.out.println("Gyro angle: " + RobotMap.gyro.getAngle() );
     	System.out.println("Camera position: "+ (CameraFrontBack.forward ? "Front":"Back"));
     	double sonicmVolts = RobotMap.ultraSensor.getVoltage();
@@ -118,10 +118,10 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println(x);
     	*/
 		
-
+//
 //    	System.out.println("Right encoder:");
 //    	System.out.println("  count =" +Robot.drivelineSubsystem.getRightEncoder().get());
-//    	System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
+//		System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
 //    	System.out.println("  stopped =" +Robot.drivelineSubsystem.getRightEncoder().getStopped());
 //    	System.out.println("  direction =" +Robot.drivelineSubsystem.getRightEncoder().getDirection());
 //    	System.out.println("  distance =" +Robot.drivelineSubsystem.getRightEncoder().getDistance());
@@ -135,8 +135,14 @@ public class ControlBoxSubsystem extends Subsystem {
 //    	System.out.println("  distance =" +Robot.drivelineSubsystem.getLeftEncoder().getDistance());
 
 
-    	System.out.println("  counter =" +Robot.drivelineSubsystem.leftCounter.get());
-
+    	System.out.println("  counter L =" +Robot.drivelineSubsystem.leftCounter.get());
+    	System.out.println("  counter R =" +Robot.drivelineSubsystem.rightCounter.get());
+		//System.out.println("  counter R =" +Robot.drivelineSubsystem.rightCounter.())
+    	System.out.println("Distance per pulse: " + Robot.drivelineSubsystem.distancePerPulse);
+    	System.out.println("  rate R =" +Robot.drivelineSubsystem.rightCounter.getRate());
+    	System.out.println("  rate L =" +Robot.drivelineSubsystem.leftCounter.getRate());
+    	//double distancePerPulse;
+		//System.out.println("Distance per pulse: " + Robot.drivelineSubsystem.distancePerPulse);
     }
     
     public double getPotValue(int axis) {

@@ -22,13 +22,13 @@ public class GrabberSensorSubsystem extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 
-    public boolean get() {
+    /*public boolean get() {
     	return RobotMap.grabberSensor.get();
     }
     
     public void print() {
     	System.out.println("Grabber sensor status = " + get());
-    }
+    }*/
 
 }
 

@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
 	public static ADIS16448_IMU imu;
 	public static LIDAR lidar;
 	public static SerialLidar slidar;
+	public static ClimbingSubsystem ClimbingStop;
 
 	private static final int IMG_WIDTH = 320;
 	private static final int IMG_HEIGHT = 240;
@@ -82,8 +83,10 @@ public class Robot extends IterativeRobot {
 	private final Object imgLock = new Object();
 	
 	//  Added two different thresholds to account for hardware lag
-	private static double lowThreshold = 30;	// shift into lower gear if encoder rate is low enough
-    private static double highThreshold = 60;  // shift into higher gear if encoder rate is high enough
+	private static double lowThreshold = 20;	// shift into lower gear if encoder rate is low enough
+    private static double highThreshold = 50;  // shift into higher gear if encoder rate is high enough
+    
+    private static boolean stopped = false;
     
 	// GRIP network table
 	// private final NetworkTable grip = NetworkTable.getTable("grip");
@@ -132,10 +135,14 @@ public class Robot extends IterativeRobot {
 		imu.reset();
 		// imu.
 
-		UsbCamera usbCamera = cameraServer.startAutomaticCapture("Robot Camera", 0);
-		usbCamera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		// Front camera
+		UsbCamera usbCamera0 = cameraServer.startAutomaticCapture("Robot Camera0", 0);
+		usbCamera0.setResolution(IMG_WIDTH, IMG_HEIGHT);
 
-
+		// Back camera
+		UsbCamera usbCamera1 = cameraServer.startAutomaticCapture("Robot Camera1", 1);
+		usbCamera1.setResolution(IMG_WIDTH, IMG_HEIGHT);
+		
 		/*
 		 * visionThread = new VisionThread(usbCamera, new MidGripPipeline(),
 		 * pipeline -> { ArrayList<MatOfPoint> filterContoursOutput =
@@ -213,39 +220,64 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		// SmartDashboard.putData("IMU", imu); // TODO: remove me
+		
 		Scheduler.getInstance().run();
-	//	System.out.println("teleop periodic was called");
+		//System.out.println("teleop periodic was called");
 		
 		//If switch (4) is up then regular speed 
 		//else down then faster 
 		
-		Joystick cb = RobotMap.controlBox; 
-		boolean on = cb.getRawButton(4);
-		/*
-		if (on) { // if manual switch is on, shift into high gear/ low speed
-			Robot.gearBoxSubsystem.highgear();
-		} else {      //setting the gearbox subsystem to low gear/high speed
-			
-			Robot.gearBoxSubsystem.lowgear(); 
-		}*/
-		//System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
-		//if ( && rightCounter == );
+		Joystick cb = RobotMap.controlBox; 		// initialize the black control box
+		boolean on = cb.getRawButton(4);		// initialize the switch used in manual gear shifting
+		boolean auto = cb.getRawButton(5);		// initialize the switch between automatic and manual gear shifting
+
+		// get the rates of both the left and right encoders
 		double leftRate = drivelineSubsystem.leftCounter.getRate();
 		double rightRate = drivelineSubsystem.rightCounter.getRate();
+		//System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
 
 		// get the current state of the shifter
 		Value shooterState = Robot.gearBoxSubsystem.getShooterState();
 		
 		// if the rates of left and right counters are both (number) then switch to highgear else lowgear
 		// if we're moving faster or at threshold speed & if shifter state is not in low gear/ high speed
-		if ( (leftRate >= highThreshold && rightRate >= highThreshold) && shooterState != Value.kForward){ 
-				Robot.gearBoxSubsystem.highgear();  // switch into high speed
+		if (auto){		// check if we're relying on automatic gear shifting
+			
+			// check if we need to shift into high gear
+			if ( (leftRate >= highThreshold && rightRate >= highThreshold) && shooterState != Value.kForward){ 
+				Robot.gearBoxSubsystem.highgear();  // switch into high 
 			} 
-		else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shooterState != Value.kReverse){      // else if
-				Robot.gearBoxSubsystem.lowgear(); // switched into low speed
+			
+			// check if we need to shift into low gear
+			else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shooterState != Value.kReverse){
+				Robot.gearBoxSubsystem.lowgear(); // switched into low
 			}
-		//else Robot.gearBoxSubsystem.highgear(); // switched into high gear/ low speed
 		}
+		else{
+			if (on) { // if manual switch is on, shift into high gear/ low speed
+				Robot.gearBoxSubsystem.highgear();
+			}
+			else {      //setting the gearbox subsystem to low gear/high speed
+				Robot.gearBoxSubsystem.lowgear(); 
+			}
+		}
+		
+		if (RobotMap.climberSensor.get()){
+			Robot.driveTrain.stop();
+			stopped = true;
+			
+				// while we are stopped
+				while(stopped == true){
+//					Robot.driveTrain.motionlock = true;
+					if(!RobotMap.climberSensor.get()){  // if switch is not engaged
+						Robot.driveTrain.start();
+						stopped = false;
+					}
+				}
+		}
+		
+
+	}
 
 	/**
 	 * This function is called periodically during test mode

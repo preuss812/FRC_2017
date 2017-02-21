@@ -143,6 +143,10 @@ public class ControlBoxSubsystem extends Subsystem {
     	System.out.println("  rate L =" +Robot.drivelineSubsystem.leftCounter.getRate());
     	//double distancePerPulse;
 		//System.out.println("Distance per pulse: " + Robot.drivelineSubsystem.distancePerPulse);
+    	
+    	
+    	// climbing limit switches
+    	System.out.println("Climber limit switches: " + RobotMap.climberSensor.get());
     }
     
     public double getPotValue(int axis) {

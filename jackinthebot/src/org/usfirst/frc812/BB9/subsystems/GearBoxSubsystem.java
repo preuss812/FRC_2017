@@ -20,13 +20,13 @@ public class GearBoxSubsystem extends Subsystem {
 			 
 		 switch (leftValue) {
 	      case kOff:
-	    	  System.out.println("shifter is OFF");
+//	    	  System.out.println("robot is NOT MOVING!");
 	        break;
 	      case kForward: // kForward is high speed
-	   	  System.out.println("robot is going at high speed");
+//	   	  System.out.println("robot is going at high speed/low gear");
 	        break;
 	      case kReverse: // kReverse is low speed
-	      System.out.println("robot is going at low speed");
+//	      System.out.println("robot is going at low speed/high gear");
 	        break;
 	    }
 		 return leftValue;

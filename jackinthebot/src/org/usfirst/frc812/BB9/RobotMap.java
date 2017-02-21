@@ -61,6 +61,7 @@ public class RobotMap {
     public static AnalogGyro gyro; 
     public static Joystick controlBox;
    // public static DigitalInput grabberSensor;
+    public static DigitalInput climberSensor;
     	
     
     //ultrasonic sensor
@@ -139,6 +140,9 @@ public class RobotMap {
       cameraVertical = new Servo(8);
       
       //grabberSensor = new DigitalInput(5);
+      
+      // climbing limit switches
+      climberSensor = new DigitalInput(9);
       
     }
 }

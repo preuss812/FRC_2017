@@ -237,19 +237,19 @@ public class Robot extends IterativeRobot {
 		//System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
 
 		// get the current state of the shifter
-		Value shooterState = Robot.gearBoxSubsystem.getShooterState();
+		Value shifterState = Robot.gearBoxSubsystem.getShooterState();
 		
 		// if the rates of left and right counters are both (number) then switch to highgear else lowgear
 		// if we're moving faster or at threshold speed & if shifter state is not in low gear/ high speed
 		if (auto){		// check if we're relying on automatic gear shifting
 			
 			// check if we need to shift into high gear
-			if ( (leftRate >= highThreshold && rightRate >= highThreshold) && shooterState != Value.kForward){ 
+			if ( (leftRate >= highThreshold && rightRate >= highThreshold) && shifterState != Value.kForward){ 
 				Robot.gearBoxSubsystem.highgear();  // switch into high 
 			} 
 			
 			// check if we need to shift into low gear
-			else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shooterState != Value.kReverse){
+			else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shifterState != Value.kReverse){
 				Robot.gearBoxSubsystem.lowgear(); // switched into low
 			}
 		}

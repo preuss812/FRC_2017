@@ -16,9 +16,9 @@ public class GearBoxSubsystem extends Subsystem {
 	 DoubleSolenoid shifterSolenoid = RobotMap.shifter;
 	
 	 public DoubleSolenoid.Value getShooterState() {
-		 DoubleSolenoid.Value leftValue = shifterSolenoid.get();
+		 DoubleSolenoid.Value shifterState = shifterSolenoid.get();
 			 
-		 switch (leftValue) {
+		 switch (shifterState) {
 	      case kOff:
 //	    	  System.out.println("robot is NOT MOVING!");
 	        break;
@@ -29,7 +29,7 @@ public class GearBoxSubsystem extends Subsystem {
 //	      System.out.println("robot is going at low speed/high gear");
 	        break;
 	    }
-		 return leftValue;
+		 return shifterState;
 	 }
 	 
 	 public void shiftersOff() {

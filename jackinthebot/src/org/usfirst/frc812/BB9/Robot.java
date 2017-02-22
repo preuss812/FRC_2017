@@ -262,6 +262,7 @@ public class Robot extends IterativeRobot {
 			}
 		}
 		
+		// if the limit switches are engaged
 		if (RobotMap.climberSensor.get()){
 			Robot.driveTrain.stop();
 			stopped = true;
@@ -274,11 +275,8 @@ public class Robot extends IterativeRobot {
 						stopped = false;
 					}
 				}
-		}
-		
-
+		}		
 	}
-
 	/**
 	 * This function is called periodically during test mode
 	 */

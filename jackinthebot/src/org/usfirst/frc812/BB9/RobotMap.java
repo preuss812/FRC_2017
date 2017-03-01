@@ -129,12 +129,12 @@ public class RobotMap {
       shifter = new DoubleSolenoid(0,0,1);
       shootRight = new DoubleSolenoid(8,1,3);
       ballGatherer = new DoubleSolenoid(8,4,5);
-      gyro = new AnalogGyro(0);
+//      gyro = new AnalogGyro(0);
       controlBox = new Joystick(2);
       
       //ultrasonic sensor
-      ultraSensor = new AnalogInput(1);
-      analogPot = new AnalogInput(2);
+//      ultraSensor = new AnalogInput(1);
+//      analogPot = new AnalogInput(2);
       
       cameraHorizontal = new Servo(9);
       cameraVertical = new Servo(8);

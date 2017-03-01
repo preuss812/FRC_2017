@@ -121,8 +121,8 @@ public class Robot extends IterativeRobot {
 	
 		// lidar = new LIDAR(Port.kMXP);
 		// lidar.start(2000);
-		slidar = new SerialLidar(115200, SerialPort.Port.kOnboard);
-		slidar.start(100);
+		//slidar = new SerialLidar(115200, SerialPort.Port.kOnboard);
+		//slidar.start(100);
 
 		cameraControl = new CameraControl();
 		cameraServer = CameraServer.getInstance();
@@ -275,7 +275,7 @@ public class Robot extends IterativeRobot {
 						stopped = false;
 					}
 				}
-		}		
+		}
 	}
 	/**
 	 * This function is called periodically during test mode

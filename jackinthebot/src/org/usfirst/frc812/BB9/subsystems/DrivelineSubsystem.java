@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DrivelineSubsystem extends Subsystem {
 
 	public static final double distancePerPulse = .01227;
-	public static Encoder leftEnc;
-	public static Encoder rightEnc;
+	public Encoder leftEnc;
+	public Encoder rightEnc;
 	
-	public static Counter leftCounter;
-	public static Counter rightCounter;
+	public  Counter leftCounter;
+	public  Counter rightCounter;
 	
 	public DrivelineSubsystem() {
 //		leftEnc = new Encoder(0, 1, false, Encoder.EncodingType.k1X);
@@ -21,7 +21,7 @@ public class DrivelineSubsystem extends Subsystem {
 //		setDefaultValues(rightEnc);
 //		leftEnc.reset();
 //		rightEnc.reset();
-		
+
 		leftCounter = new Counter();
 		leftCounter.setUpSource(1);
 		leftCounter.setDownSource(0);
@@ -46,7 +46,7 @@ public class DrivelineSubsystem extends Subsystem {
 	public void setDefaultValues(Encoder encoder) {
 		encoder.setMaxPeriod(1);
 		//encoder.setMinRate(10);
-		encoder.setDistancePerPulse(0.01227);
+		encoder.setDistancePerPulse(distancePerPulse);
 		// encoder.setReverseDirection(true);
 		encoder.setSamplesToAverage(4);
 		
@@ -55,7 +55,7 @@ public class DrivelineSubsystem extends Subsystem {
 	public void setDefaultValues(Counter counter) {
 		counter.setMaxPeriod(1);
 		//encoder.setMinRate(10);
-		counter.setDistancePerPulse(0.01227);
+		counter.setDistancePerPulse(distancePerPulse);
 		// encoder.setReverseDirection(true);
 		counter.setSamplesToAverage(4);
 		

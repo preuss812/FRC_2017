@@ -69,17 +69,17 @@ public class ControlBoxSubsystem extends Subsystem {
     	
     	System.out.println("");
     	//System.out.println("Intake position via switch sensor: " + (Robot.grabberSensorSubsystem.get() ? "In":"Out"));
-    	System.out.println("Gyro angle: " + RobotMap.gyro.getAngle() );
+//    	System.out.println("Gyro angle: " + RobotMap.gyro.getAngle() );
     	System.out.println("Camera position: "+ (CameraFrontBack.forward ? "Front":"Back"));
-    	double sonicmVolts = RobotMap.ultraSensor.getVoltage();
-    	double sonicValue = RobotMap.ultraSensor.getValue();
-    	System.out.println("Ultrasonic: mV=" + sonicmVolts + " d(cm)=" + sonicmVolts*4.9*1000.0 + " 12-bit value="+ sonicValue);
-    	System.out.println("avg bits=" + RobotMap.ultraSensor.getAverageBits() + " LSBWeight=" + RobotMap.ultraSensor.getLSBWeight());
-    	double potVolts = RobotMap.analogPot.getVoltage();
-    	System.out.println("Pot: mV=" + potVolts + " d(cm)=" + potVolts*4.9*1000.0);
+//    	double sonicmVolts = RobotMap.ultraSensor.getVoltage();
+//    	double sonicValue = RobotMap.ultraSensor.getValue();
+//    	System.out.println("Ultrasonic: mV=" + sonicmVolts + " d(cm)=" + sonicmVolts*4.9*1000.0 + " 12-bit value="+ sonicValue);
+//    	System.out.println("avg bits=" + RobotMap.ultraSensor.getAverageBits() + " LSBWeight=" + RobotMap.ultraSensor.getLSBWeight());
+//    	double potVolts = RobotMap.analogPot.getVoltage();
+//    	System.out.println("Pot: mV=" + potVolts + " d(cm)=" + potVolts*4.9*1000.0);
     	System.out.println("IMU Pitch:" + Robot.imu.getPitch() + " Yaw: " + Robot.imu.getYaw() + " Roll: " + Robot.imu.getRoll());
     	System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
-    	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
+//    	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
 
     	
     	

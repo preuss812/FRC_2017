@@ -61,6 +61,9 @@ public class AutonomousCommand extends Command {
 		Robot.controlBoxSubsystem.readBits();
 		System.out.println("Auto: initialize");
 		Robot.controlBoxSubsystem.printBits();
+		
+		// time out in 3 seconds, making isFinished() return true
+		this.setTimeout(3);
 		// Robot.drivelineSubsystem.rightEnc.reset();
 		// DrivelineSubsystem.leftEnc.reset();
 		// How long is it to drive in autonomous?
@@ -69,16 +72,10 @@ public class AutonomousCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Robot.controlBoxSubsystem.isSet(7)) { // Drive forward
-			System.out.println("Driving Forward");
 			// Program to drive forward 5 feet
-
-			while (Robot.drivelineSubsystem.rightCounter.get() < 1000) {
-				RobotMap.dtProductionRobotDrive.drive(0.5, 0);
-				// Drive the motors at "outputMagnitude" and "curve". Both
-				// outputMagnitude and curve are -1.0 to +1.0 values,
-				// where 0.0 represents stopped and not turning. curve < 0 will
-				// turn left and curve > 0 will turn right.
-			}
+			// Stops when isFinished() returns true
+			System.out.println("Driving Forward autonomously");
+			RobotMap.dtProductionRobotDrive.drive(0.5, 0);
 		}
 	}
 
@@ -106,7 +103,7 @@ public class AutonomousCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return isTimedOut();
+		return isTimedOut() || Robot.drivelineSubsystem.rightCounter.get() > 1000;
 	}
 
 	// Called once after isFinished returns true

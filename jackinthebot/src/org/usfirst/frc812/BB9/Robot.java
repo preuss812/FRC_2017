@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
 	public static GathererMotorSubsystem gathererMotorSubsystem;
 	public static GrabberSensorSubsystem grabberSensorSubsystem;
 	public static DrivelineSubsystem drivelineSubsystem;
-	public static ADIS16448_IMU imu;
+//	public static ADIS16448_IMU imu;
 	public static LIDAR lidar;
 	public static SerialLidar slidar;
 	public static ClimbingSubsystem ClimbingStop;
@@ -83,8 +83,8 @@ public class Robot extends IterativeRobot {
 	private final Object imgLock = new Object();
 	
 	//  Added two different thresholds to account for hardware lag
-	private static double lowThreshold = 20;	// shift into lower gear if encoder rate is low enough
-    private static double highThreshold = 50;  // shift into higher gear if encoder rate is high enough
+	private static double lowThreshold =  30; //20;	// shift into lower gear if encoder rate is low enough
+    private static double highThreshold = 60; //50;  // shift into higher gear if encoder rate is high enough
     
     private static boolean stopped = false;
     
@@ -128,11 +128,11 @@ public class Robot extends IterativeRobot {
 		cameraServer = CameraServer.getInstance();
 		// cameraServer.setQuality(50);
 
-		imu = new ADIS16448_IMU();
+		//imu = new ADIS16448_IMU();
 		// SmartDashboard.putData("IMU", imu);
 		// Timer.delay(0.005);
-		imu.calibrate();
-		imu.reset();
+		//imu.calibrate();
+		//imu.reset();
 		// imu.
 
 		// Front camera
@@ -243,10 +243,13 @@ public class Robot extends IterativeRobot {
 		// if the rates of left and right counters are both (number) then switch to highgear else lowgear
 		// if we're moving faster or at threshold speed & if shifter state is not in low gear/ high speed
 		if (auto){		// check if we're relying on automatic gear shifting
+			//System.out.println("in auto mode");
 			
 			// check if we need to shift into high gear
+			
 			if ( (leftRate >= highThreshold && rightRate >= highThreshold) && shifterState != Value.kForward){ 
 				Robot.gearBoxSubsystem.highgear();  // switch into high 
+				System.out.println("trigger shift to high speed");
 			} 
 			
 			// check if we need to shift into low gear

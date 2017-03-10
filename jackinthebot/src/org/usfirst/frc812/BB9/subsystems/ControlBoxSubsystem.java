@@ -48,6 +48,8 @@ public class ControlBoxSubsystem extends Subsystem {
     		}
     	}
     }
+    
+     
     public boolean isSet(int flag) {
     	int flagMask = 1 << flag;
     	if( (flagBits & flagMask) == flagMask ) {
@@ -77,8 +79,8 @@ public class ControlBoxSubsystem extends Subsystem {
 //    	System.out.println("avg bits=" + RobotMap.ultraSensor.getAverageBits() + " LSBWeight=" + RobotMap.ultraSensor.getLSBWeight());
 //    	double potVolts = RobotMap.analogPot.getVoltage();
 //    	System.out.println("Pot: mV=" + potVolts + " d(cm)=" + potVolts*4.9*1000.0);
-    	System.out.println("IMU Pitch:" + Robot.imu.getPitch() + " Yaw: " + Robot.imu.getYaw() + " Roll: " + Robot.imu.getRoll());
-    	System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
+    	//System.out.println("IMU Pitch:" + Robot.imu.getPitch() + " Yaw: " + Robot.imu.getYaw() + " Roll: " + Robot.imu.getRoll());
+    	//System.out.println("IMU Temp: " + Robot.imu.getTemperature() + " Bar: " + Robot.imu.getBarometricPressure());
 //    	System.out.println("LIDAR distance: " + Robot.slidar.getDistance());
 
     	
@@ -87,12 +89,12 @@ public class ControlBoxSubsystem extends Subsystem {
     	//System.out.println("Center X: " + Robot.centerX); // Determined by the GRIP pipeline
     	
 
-    	Robot.imu.getRateX();
-        System.out.println("Rate: " + Robot.imu.getRate());  
-        System.out.println("Rate x: " + Robot.imu.getRateX()); 
-        System.out.println("Rate y: " + Robot.imu.getRateY());
-        System.out.println("Rate z: " + Robot.imu.getRateZ());
-    	
+//    	Robot.imu.getRateX();
+//        System.out.println("Rate: " + Robot.imu.getRate());  
+//        System.out.println("Rate x: " + Robot.imu.getRateX()); 
+//        System.out.println("Rate y: " + Robot.imu.getRateY());
+//        System.out.println("Rate z: " + Robot.imu.getRateZ());
+//    	
         // Encoder readings
 //        System.out.println("------------------------------------");
 //        System.out.println("Left Wheel");

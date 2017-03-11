@@ -63,8 +63,11 @@ public class AutonomousCommand extends Command {
 		//System.out.println("Auto: initialize");
 		Robot.controlBoxSubsystem.printBits();
 		
-		// time out in 3 seconds, making isFinished() return true
-		this.setTimeout(3);
+		// time out in 15 seconds, making isFinished() return true
+		// this timeout is for overall safety purposes to ensure that autonomous mode exits
+		// regardless of what we actually do in autonomous mode.
+
+		this.setTimeout(15);
 		// Robot.drivelineSubsystem.rightEnc.reset();
 		// DrivelineSubsystem.leftEnc.reset();
 		// How long is it to drive in autonomous?
@@ -72,6 +75,8 @@ public class AutonomousCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+	    DriveByTime driveByTimeCommand;
+
 		if (Robot.controlBoxSubsystem.isSet(7)) { // Drive forward
 			// Program to drive forward 5 feet
 			// Stops when isFinished() returns true
@@ -87,7 +92,7 @@ public class AutonomousCommand extends Command {
 					RobotMap.dtProductionRobotDrive.drive(0.5, 0);
 */
 				System.out.println("Instantiating DriveByTime(0.5, 0, 3");
-				DriveByTime driveByTime = new DriveByTime(0.5,0,3.0);
+				driveByTimeCommand = new DriveByTime(0.5,0,3.0);
 								
 			} else if ( Robot.controlBoxSubsystem.isSwitchCenter() ) {
 				for (int i=0; i<120; i++)
@@ -103,6 +108,12 @@ public class AutonomousCommand extends Command {
 				double encTicksEnd3 = Robot.drivelineSubsystem.leftCounter.get();
 				System.out.println("After3" + encTicksEnd3);				
 			}
+
+			// Start the DriveTime command initialized above
+			if( driveByTimeCommand != NULL ) {
+			    driveByTimeCommand.start();
+			}
+			end();
 			
 			//
 			//1 enc tick = 0.1 inch

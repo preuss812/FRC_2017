@@ -227,11 +227,14 @@ public class Robot extends IterativeRobot {
 		
 		//If switch (4) is up then regular speed 
 		//else down then faster 
-		
+		/*
 		Joystick cb = RobotMap.controlBox; 		// initialize the black control box
 		boolean on = cb.getRawButton(4);		// initialize the switch used in manual gear shifting
 		boolean auto = cb.getRawButton(5);		// initialize the switch between automatic and manual gear shifting
-
+*/
+		boolean on = Robot.controlBoxSubsystem.isSet(4);
+		boolean auto = Robot.controlBoxSubsystem.isSet(5);
+		
 		// get the rates of both the left and right encoders
 		double leftRate = drivelineSubsystem.leftCounter.getRate();
 		double rightRate = drivelineSubsystem.rightCounter.getRate();
@@ -259,9 +262,11 @@ public class Robot extends IterativeRobot {
 		}
 		else{
 			if (on) { // if manual switch is on, shift into high gear/ low speed
+			//	System.out.println("Manual high gear");
 				Robot.gearBoxSubsystem.highgear();
 			}
 			else {      //setting the gearbox subsystem to low gear/high speed
+		//		System.out.println("Manual high gear");
 				Robot.gearBoxSubsystem.lowgear(); 
 			}
 		}

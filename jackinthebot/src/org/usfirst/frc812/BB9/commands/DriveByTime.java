@@ -17,6 +17,7 @@ public class DriveByTime extends Command {
 		Direction = direction;
 		Seconds = seconds;
 		setTimeout(Seconds);
+		System.out.println("DriveByTime " + speed + " " + direction + " " + seconds );
 	}
     protected void initialize() {
     }
@@ -24,6 +25,7 @@ public class DriveByTime extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
  //   	Robot.driveTrain.
+    	System.out.println("DriveByTime:execute " + Speed + " " + Direction);
     	RobotMap.dtProductionRobotDrive.drive(Speed, Direction);
     }
 

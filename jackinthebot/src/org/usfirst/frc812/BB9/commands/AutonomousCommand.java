@@ -75,7 +75,8 @@ public class AutonomousCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	DriveByTime driveByTimeCommand;
+	DriveByTime driveByTimeCommand = null;
+	AutonomousCommandGroup autoCmdGroup = null;
 
 	if (Robot.controlBoxSubsystem.isSet(7)) { // Drive forward
 	    // Program to drive forward 5 feet
@@ -85,7 +86,11 @@ public class AutonomousCommand extends Command {
 	    double encTicksStart = Robot.drivelineSubsystem.leftCounter.get();
 	    //	System.out.println("Before" + encTicksStart);
 
-			
+	    autoCmdGroup = new AutonomousCommandGroup();
+	    if(autoCmdGroup != null) 
+	    	autoCmdGroup.start();
+	    
+	    /*
 
 	    if( Robot.controlBoxSubsystem.isSwitchLeft() ) {
 		System.out.println("switch is left, speed 0.5, curve 0, time 3 sec");
@@ -101,10 +106,10 @@ public class AutonomousCommand extends Command {
 	    }
 
 	    // Start the DriveTime command initialized above
-	    if( driveByTimeCommand != NULL ) {
-		driveByTimeCommand.start();
+	    if( driveByTimeCommand != null ) {
+	    	driveByTimeCommand.start();
 	    }
-
+*/
 	    // We only go through this loop once. The commands are a sequence, not a cycle.
 
 	    end();

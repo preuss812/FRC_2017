@@ -60,15 +60,14 @@ public class ControlBoxSubsystem extends Subsystem {
     }
     public void printBits() {
     	readBits();
-    	/*System.out.println("ControlBox bits: " + Integer.toBinaryString(flagBits));
+    	System.out.println("ControlBox bits: " + Integer.toBinaryString(flagBits));
     	String prespace = "";
     	System.out.print("Switches: ");
     	for (int i = 1; i<=7; i++) {
     		System.out.print(prespace + i + "=" + (isSet(i) ? "on":"off"));
     		prespace = " ";
-    	*/
-    	//}
-    	
+    	}	
+
     	System.out.println("");
     	//System.out.println("Intake position via switch sensor: " + (Robot.grabberSensorSubsystem.get() ? "In":"Out"));
 //    	System.out.println("Gyro angle: " + RobotMap.gyro.getAngle() );
@@ -149,7 +148,35 @@ public class ControlBoxSubsystem extends Subsystem {
     	
     	// climbing limit switches
     	System.out.println("Climber limit switches: " + RobotMap.climberSensor.get());
+    	System.out.println("out: " + (isSwitchLeft() ? "true":"false"));
+    	System.out.println("off: " + (isSwitchCenter() ? "true":"false"));
+    	System.out.println("in: " + (isSwitchRight() ? "true":"false"));
+
+ }
+ 
+/*
+ The three position switch on the external control box requires two bits
+ The switches are 1 and 2
+
+  1  |  2  | Position
+ --------------------
+  0     0    Left (or Out for FRC 2017)
+  0     1    Center (or Off for FRC 2017)
+  1     0    Don't care
+  1     1    Right (or IN for FRC 2017)
+  */
+    
+    public Boolean isSwitchLeft() {
+    	return( ! isSet(1) && ! isSet(2) );
     }
+    
+    public Boolean isSwitchCenter() {
+    	return( ! isSet(1) &&  isSet(2)) ;
+    	
+    }
+   public Boolean isSwitchRight() {
+	   return( isSet(1) && isSet(2));
+   }
     
     public double getPotValue(int axis) {
     	return cb.getRawAxis(axis);

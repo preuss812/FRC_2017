@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveByTime extends Command {
 	private double Speed;
-	private int Direction;
+	private double Direction;
 	private double Seconds;
-
-	public DriveByTime(double speed, int direction, double seconds) {
+	/*
+	 * 
+	 */
+	public DriveByTime(double speed, double direction, double seconds) {
 		requires(Robot.driveTrain);
 		Speed = speed;
 		Direction = direction;

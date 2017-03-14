@@ -258,7 +258,15 @@ public class Robot extends IterativeRobot {
 			// check if we need to shift into low gear
 			else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shifterState != Value.kReverse){
 				Robot.gearBoxSubsystem.lowgear(); // switched into low
-			}
+			
+//			if (rightRate >= highThreshold && shifterState != Value.kForward){ 
+//					Robot.gearBoxSubsystem.highgear();  // switch into high 
+//					System.out.println("trigger shift to high speed");
+//			} 	
+//				// check if we need to shift into low gear
+//				else if(rightRate <= lowThreshold && shifterState != Value.kReverse){
+//					Robot.gearBoxSubsystem.lowgear(); // switched into low
+//			}
 		}
 		else{
 			if (on) { // if manual switch is on, shift into high gear/ low speed
@@ -270,7 +278,7 @@ public class Robot extends IterativeRobot {
 				Robot.gearBoxSubsystem.lowgear(); 
 			}
 		}
-		
+
 		// if the limit switches are engaged
 		if (RobotMap.climberSensor.get()){
 			Robot.driveTrain.stop();

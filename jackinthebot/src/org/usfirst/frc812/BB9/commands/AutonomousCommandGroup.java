@@ -8,27 +8,38 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class AutonomousCommandGroup extends CommandGroup {
-
-	public AutonomousCommandGroup() {
+	private double LeftCount= Robot.drivelineSubsystem.leftCounter.get() * (-1); // initialize current counter value
+	private double RightCount= Robot.drivelineSubsystem.rightCounter.get() * (-1); AutonomousCommandGroup() {
 
 		System.out.println("I am in AutonomousCommandGroup");
 
-		if (Robot.controlBoxSubsystem.isSwitchCenter()) {
-			double mspeed = 0.5;
-			int mdirection = 0;
-			double mseconds = 2.6;
-			System.out.println("switch is left, speed " + mspeed + ", curve " + mdirection + ", time " + mseconds);
-			addSequential(new DriveByTime(mspeed, mdirection, mseconds));
+//		if (Robot.controlBoxSubsystem.isSwitchCenter()) {
+//			double mspeed = 0.5;
+//			int mdirection = 0;
+//			double mseconds = 4; //1.6 before
+//			System.out.println("switch is left, speed " + mspeed + ", curve " + mdirection + ", time " + mseconds);
+//			addSequential(new DriveByTime(mspeed, mdirection, mseconds));
 
+		if (Robot.controlBoxSubsystem.isSwitchCenter()) {
+			System.out.println("switch is center, speed 0.4, curve 0, counterstop 10000");
+			addSequential(new DriveByCounters(0.2, 0, 10000));
+			Robot.drivelineSubsystem.leftCounter.reset();
+			Robot.drivelineSubsystem.rightCounter.reset();
+				//turn to the side in order to get straight ahead of the peg
+//			addSequential(new DriveByCounters(0.2, 0.2, 10000));
+				//drive forward into the peg
+//			addSequential(new DriveByCounters(0.2, 0, 10000));
 		} else if (Robot.controlBoxSubsystem.isSwitchRight()) {
-			System.out.println("switch is center, speed 0.5, curve 1, time 1 sec");
-			addSequential(new DriveByTime(0.5, 0, 1.9));
-			addSequential(new DriveByTime(0.5, 0.40, 2.0));
+			System.out.println("switch is right, speed 0.5, curve 1, time 1 sec");
+			addSequential(new DriveByTime(0.5, 0, 3.0));
+			addSequential(new DriveByTime(0.5, 0.20, 1.5));
+			addSequential(new DriveByTime(0.5, 0, 1.0));
 
 		} else if (Robot.controlBoxSubsystem.isSwitchLeft()) {
-			System.out.println("switch is right, speed 0.5, curve -1, time 1 sec");
-			addSequential(new DriveByTime(0.5, 0, 1.9));
-			addSequential(new DriveByTime(0.5, -0.40, 2.0));
+			System.out.println("switch is left, speed 0.5, curve -1, time 1 sec");
+			addSequential(new DriveByTime(0.5, 0, 3.0));
+			addSequential(new DriveByTime(0.5, -0.20, 1.5));
+			addSequential(new DriveByTime(0.5, 0, 1.0));
 		}
 	}
 	// To run multiple commands at the same time,

@@ -75,18 +75,20 @@ public class AutonomousCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-	DriveByTime driveByTimeCommand = null;
-	AutonomousCommandGroup autoCmdGroup = null;
+    	System.out.println("execute activated");
+//	DriveByTime driveByTimeCommand = null;
+	AutonomousCommandGroup autoCmdGroup =null ;//was null
 
 	if (Robot.controlBoxSubsystem.isSet(7)) { // Drive forward
 	    // Program to drive forward 5 feet
 	    // Stops when isFinished() returns true
 	    //	System.out.println("Driving Forward autonomously");
 			
-	    double encTicksStart = Robot.drivelineSubsystem.leftCounter.get();
+	   // double encTicksStart = Robot.drivelineSubsystem.leftCounter.get();
 	    //	System.out.println("Before" + encTicksStart);
 
 	    autoCmdGroup = new AutonomousCommandGroup();
+	    System.out.println("made it to if in AutoComGroup");
 	    if(autoCmdGroup != null) 
 	    	autoCmdGroup.start();
 	    

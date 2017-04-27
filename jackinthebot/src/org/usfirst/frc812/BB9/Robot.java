@@ -83,8 +83,8 @@ public class Robot extends IterativeRobot {
 	private final Object imgLock = new Object();
 	
 	//  Added two different thresholds to account for hardware lag
-	private static double lowThreshold =  30; //20;	// shift into lower gear if encoder rate is low enough
-    private static double highThreshold = 60; //50;  // shift into higher gear if encoder rate is high enough
+	private static double lowThreshold =  50; //20;	// shift into lower gear if encoder rate is low enough
+    private static double highThreshold = 85; //50;  // shift into higher gear if encoder rate is high enough
     
     private static boolean stopped = false;
     
@@ -195,7 +195,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		autonomousCommand = new AutonomousCommand();
-		
+		System.out.println("auto init");
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -204,7 +204,10 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
+		System.out.println("auto running");
 		Scheduler.getInstance().run();
+		//System.out.println("leftcount is " +LeftCount );
+		//System.out.println("rightcount is " + RightCount );
 	}
 
 	public void teleopInit() {
@@ -237,8 +240,16 @@ public class Robot extends IterativeRobot {
 		
 		// get the rates of both the left and right encoders
 		double leftRate = drivelineSubsystem.leftCounter.getRate();
-		double rightRate = drivelineSubsystem.rightCounter.getRate();
-		//System.out.println("  rate =" +Robot.drivelineSubsystem.getRightEncoder().getRate());
+		double rightRate = drivelineSubsystem.rightCounter.getRate() * (-1);
+		double iothree = drivelineSubsystem.leftCounter.get();
+		double iofour = drivelineSubsystem.rightCounter.get() * (-1);
+//		drivelineSubsystem.rightCounter.reset();
+//		drivelineSubsystem.leftCounter.reset();
+		
+		System.out.println("  right rate =" +rightRate);
+		System.out.println("  left rate =" +leftRate);
+		System.out.println("  left count =" +iothree);	
+		System.out.println("  right count =" +iofour);
 
 		// get the current state of the shifter
 		Value shifterState = Robot.gearBoxSubsystem.getShooterState();
@@ -246,7 +257,7 @@ public class Robot extends IterativeRobot {
 		// if the rates of left and right counters are both (number) then switch to highgear else lowgear
 		// if we're moving faster or at threshold speed & if shifter state is not in low gear/ high speed
 		if (auto){		// check if we're relying on automatic gear shifting
-			//System.out.println("in auto mode");
+		System.out.println("in auto mode");
 			
 			// check if we need to shift into high gear
 			
@@ -258,42 +269,37 @@ public class Robot extends IterativeRobot {
 			// check if we need to shift into low gear
 			else if( (leftRate <= lowThreshold && rightRate <= lowThreshold) && shifterState != Value.kReverse){
 				Robot.gearBoxSubsystem.lowgear(); // switched into low
-			
-//			if (rightRate >= highThreshold && shifterState != Value.kForward){ 
-//					Robot.gearBoxSubsystem.highgear();  // switch into high 
-//					System.out.println("trigger shift to high speed");
-//			} 	
-//				// check if we need to shift into low gear
-//				else if(rightRate <= lowThreshold && shifterState != Value.kReverse){
-//					Robot.gearBoxSubsystem.lowgear(); // switched into low
-//			}
-		}
+		}}
 		else{
 			if (on) { // if manual switch is on, shift into high gear/ low speed
 			//	System.out.println("Manual high gear");
 				Robot.gearBoxSubsystem.highgear();
+				System.out.println("  left rate =" +leftRate);
+				System.out.println("  right rate =" +rightRate);
+				System.out.println("  right count =" +iothree);
+				System.out.println("  left count =" +iofour);
 			}
 			else {      //setting the gearbox subsystem to low gear/high speed
 		//		System.out.println("Manual high gear");
-				Robot.gearBoxSubsystem.lowgear(); 
-			}
+				Robot.gearBoxSubsystem.lowgear();
+//				System.out.println("  rate =" +leftRate);
+			}}
 		}
 
 		// if the limit switches are engaged
-		if (RobotMap.climberSensor.get()){
-			Robot.driveTrain.stop();
-			stopped = true;
-			
-				// while we are stopped
-				while(stopped == true){
-//					Robot.driveTrain.motionlock = true;
-					if(!RobotMap.climberSensor.get()){  // if switch is not engaged
-						Robot.driveTrain.start();
-						stopped = false;
-					}
-				}
-		}
-	}
+//		if (RobotMap.climberSensor.get()){
+//			Robot.driveTrain.stop();
+//			stopped = true;
+//			
+//				// while we are stopped
+//				while(stopped == true){
+////					Robot.driveTrain.motionlock = true;
+//					if(!RobotMap.climberSensor.get()){  // if switch is not engaged
+//						Robot.driveTrain.start();
+//						stopped = false;
+//					}
+//				}
+	
 	/**
 	 * This function is called periodically during test mode
 	 */

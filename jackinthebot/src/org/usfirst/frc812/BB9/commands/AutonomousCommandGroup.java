@@ -19,13 +19,17 @@ public class AutonomousCommandGroup extends CommandGroup {
 //			double mseconds = 4; //1.6 before
 //			System.out.println("switch is left, speed " + mspeed + ", curve " + mdirection + ", time " + mseconds);
 //			addSequential(new DriveByTime(mspeed, mdirection, mseconds));
+		
+		
 
 		if (Robot.controlBoxSubsystem.isSwitchCenter()) {
 			System.out.println("switch is center, speed 0.4, curve 0, counterstop 10000");
-			addSequential(new DriveByCounters(0.2, 0, 10000));
-			Robot.drivelineSubsystem.leftCounter.reset();
-			Robot.drivelineSubsystem.rightCounter.reset();
-				//turn to the side in order to get straight ahead of the peg
+			addSequential(new AccelByCounters(5000));
+//			addSequential(new DriveByCounters(.25, 0, 4000));
+//			addSequential(new DecelByCounters(.5, 0, 4000));
+//			addSequential(new DriveByCounters(.5, 0, 4000));
+
+			//turn to the side in order to get straight ahead of the peg
 //			addSequential(new DriveByCounters(0.2, 0.2, 10000));
 				//drive forward into the peg
 //			addSequential(new DriveByCounters(0.2, 0, 10000));

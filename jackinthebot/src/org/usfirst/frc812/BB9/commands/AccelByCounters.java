@@ -1,39 +1,31 @@
 package org.usfirst.frc812.BB9.commands;
+
 import org.usfirst.frc812.BB9.Robot;
 import org.usfirst.frc812.BB9.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-// class is made to drive straight at a given power level
+public class AccelByCounters extends Command {
 
+	public AccelByCounters() {}
+		/// class is made to drive straight at a given power level
 
-public class DriveByCounters extends Command {
-
-	private double Speed = 0;
 	private double Direction =0;
-	private double StopCount =0; //desired stop value
-	private double LeftCount= Robot.drivelineSubsystem.rightCounter.get() * (-1); 
-	private double RightCount= Robot.drivelineSubsystem.leftCounter.get() * (-1);
-	private double Threshold = 30.00; 
-
-//if (Robot.drivelineSubsystem.leftCounter.get() < DistanceThreshold && Robot.drivelineSubsystem.rightCounter.get() < DistanceThreshold)
-//	{Robot.driveTrain.drive(Accel, 0);}
-//
-//else {Robot.driveTrain.drive(Decel, 0);}
+	private double StopCount =0;
+	int CountAvg = (Robot.drivelineSubsystem.leftCounter.get() + Robot.drivelineSubsystem.rightCounter.get())/2;
+	double CounterConstant = StopCount / .4;
+	double Accel = .1 + (CountAvg / CounterConstant);
 
 	
-//	//Constructor Method for drive by counter
+//	//Constructor Method for accelerating by counter
 	
-	public DriveByCounters(double speed, double direction, double stopCount) {
+	public AccelByCounters(double stopCount) {
 		
 		requires(Robot.driveTrain);
-		Speed = speed;
-		Direction = direction;
 		StopCount = stopCount;
 		setTimeout(15);
 		
-		
-		
-		System.out.println("DriveByCounters, speed= " + speed + " direction= " + direction + " stop at  " + stopCount   );
+		System.out.println("DriveByCounters, speed= " + Accel + " stop at  " + stopCount   );
 		
 	}
 
@@ -65,49 +57,56 @@ public class DriveByCounters extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-//    	System.out.println("made it to execute in drivebycounters");
+    	
     	double righty = Robot.drivelineSubsystem.rightCounter.get() * (-1);
     	double lefty = Robot.drivelineSubsystem.leftCounter.get();
-    	double delta = java.lang.Math.abs(lefty-righty);
-    	double percentError = delta/(lefty + righty);
-    	double constant = .000001;
-    	double factor = 10;
+    	double CountAvg = ((lefty + righty)/2);
+    	double CounterConstant = StopCount/ .4;
+    	double Accel = .1 + ( CountAvg / CounterConstant);
+    	System.out.println("Speed =" + Accel );
+//    	System.out.println("Average =" + CountAvg );
+    	System.out.println("Left =" + lefty );
+    	System.out.println("Right =" + righty );
+//    	double delta = java.lang.Math.abs(lefty-righty);
+//    	double percentError = delta/(lefty + righty);
+//    	double constant = .000001;
+//    	double factor = 10;
 //    	System.out.println("made it to counter gets");
     	if(lefty <= StopCount && righty<=StopCount)
-    	{
-    		System.out.println("inside while loop, L&R counter are: " + lefty +"    " + righty  );
-     	//Robot.driveTrain.
-    		System.out.println("Direction value is" + Direction   );
-    		System.out.println("Delta value is" + delta   );
-    		System.out.println("percentError is" + percentError   );
-    	RobotMap.dtProductionRobotDrive.drive(Speed,Direction);
+//    	{
+//    		System.out.println("inside while loop, L&R counter are: " + lefty +"    " + righty  );
+//     	//Robot.driveTrain.
+//    		System.out.println("Direction value is" + Direction   );
+//    		System.out.println("Delta value is" + delta   );
+//    		System.out.println("percentError is" + percentError   );
+    	RobotMap.dtProductionRobotDrive.drive(Accel,Direction);
     	//Speed & Direction are between +1 and -1
     	//positive direction =right turn, negative=left turn
     	
     	
-    	if(delta>=Threshold)  
-    		{
-    		System.out.println("inside threshold check");
-    		System.out.println(" L&R counter are: " + lefty +"    " + righty  );
-    	
-	    		if(lefty>=righty)  //left counter ahead, turn towards left 
-	    			{
-	    		System.out.println("turning left");
-	    		System.out.println(" L&R counter are: " + lefty +"    " + righty  );
-	    		Direction=(Direction-(factor * percentError * (Direction + constant)));
-	    		System.out.println("Direction value is" + Direction   );
-	    			}
-	    		if(righty>=lefty) //right counter ahead, turn towards right
-	    			{
-	    		System.out.println("turning right");
-	    		System.out.println(" L&R counter are: " + lefty +"    " + righty  );
-	    		Direction=(Direction+(factor * percentError * (Direction + constant)));
-	    		System.out.println("Direction value is" + Direction);
-	    			} 
+//    	if(delta>=Threshold)  
+//    		{
+//    		System.out.println("inside threshold check");
+//    		System.out.println(" L&R counter are: " + lefty +"    " + righty  );
+//    	
+//	    		if(lefty>=righty)  //left counter ahead, turn towards left 
+//	    			{
+//	    		System.out.println("turning left");
+//	    		System.out.println(" L&R counter are: " + lefty +"    " + righty  );
+//	    		Direction=(Direction-(factor * percentError * (Direction + constant)));
+//	    		System.out.println("Direction value is" + Direction   );
+//	    			}
+//	    		if(righty>=lefty) //right counter ahead, turn towards right
+//	    			{
+//	    		System.out.println("turning right");
+//	    		System.out.println(" L&R counter are: " + lefty +"    " + righty  );
+//	    		Direction=(Direction+(factor * percentError * (Direction + constant)));
+//	    		System.out.println("Direction value is" + Direction);
+//	    			} 
     	counterReached();
     	
-    		}
-    	}
+//    		}
+//    	}
     	
   }
 

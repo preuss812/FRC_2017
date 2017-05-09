@@ -91,5 +91,10 @@ public class DriveTrain extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new DriveWithJoysticks());
     }
+
+	public void drive(double accel, int i) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

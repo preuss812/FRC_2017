@@ -19,8 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
 //import edu.wpi.first.wpilibj.communication.UsageReporting;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
-import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -28,12 +27,13 @@ import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.InterruptableSensorBase;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This class is for the ADIS16448 IMU that connects to the RoboRIO MXP port.
  */
-public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, LiveWindowSendable {
+public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource {
   private static final double kTimeout = 0.1;
   private static final double kCalibrationSampleTime = 5.0;
   private static final double kDegreePerSecondPerLSB = 1.0/25.0;
@@ -1085,6 +1085,7 @@ public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, LiveWind
   /**
    * {@inheritDoc}
    */
+  /*** dano 2018-01-09 livewindowsendable / IT tables deprecated, wait for NetworkTables replacement
   @Override
   public void updateTable() {
     ITable table = getTable();
@@ -1101,4 +1102,5 @@ public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, LiveWind
       table.putNumber("AngleZ", getAngleZ());
     }
   }
+  */
 }

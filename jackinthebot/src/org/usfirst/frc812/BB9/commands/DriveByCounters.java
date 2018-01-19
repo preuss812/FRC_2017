@@ -80,7 +80,7 @@ public class DriveByCounters extends Command {
     		System.out.println("Direction value is" + Direction   );
     		System.out.println("Delta value is" + delta   );
     		System.out.println("percentError is" + percentError   );
-    	RobotMap.dtProductionRobotDrive.drive(Speed,Direction);
+    	RobotMap.dtProductionRobotDrive.curvatureDrive(Speed, Direction, true);
     	//Speed & Direction are between +1 and -1
     	//positive direction =right turn, negative=left turn
     	

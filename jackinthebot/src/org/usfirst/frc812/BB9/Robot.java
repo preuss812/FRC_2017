@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
+//import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
 	public static GathererMotorSubsystem gathererMotorSubsystem;
 	public static GrabberSensorSubsystem grabberSensorSubsystem;
 	public static DrivelineSubsystem drivelineSubsystem;
-//	public static ADIS16448_IMU imu;
+	public static ADIS16448_IMU imu;
 	public static LIDAR lidar;
 	public static SerialLidar slidar;
 	public static ClimbingSubsystem ClimbingStop;
@@ -78,15 +78,13 @@ public class Robot extends IterativeRobot {
 
 	private VisionThread visionThread;
 	public static double centerX = 3.14;
-	private RobotDrive drive;
+//	private RobotDrive drive;
 
 	private final Object imgLock = new Object();
 	
 	//  Added two different thresholds to account for hardware lag
-	private static double lowThreshold =  50; //20;	// shift into lower gear if encoder rate is low enough
-    private static double highThreshold = 85; //50;  // shift into higher gear if encoder rate is high enough
-    
-    private static boolean stopped = false;
+	private static double lowThreshold =  50; // shift into lower gear if encoder rate is low enough
+    private static double highThreshold = 85; // shift into higher gear if encoder rate is high enough
     
 	// GRIP network table
 	// private final NetworkTable grip = NetworkTable.getTable("grip");
@@ -128,12 +126,12 @@ public class Robot extends IterativeRobot {
 		cameraServer = CameraServer.getInstance();
 		// cameraServer.setQuality(50);
 
-		//imu = new ADIS16448_IMU();
-		// SmartDashboard.putData("IMU", imu);
-		// Timer.delay(0.005);
-		//imu.calibrate();
-		//imu.reset();
-		// imu.
+		imu = new ADIS16448_IMU();
+		 SmartDashboard.putData("IMU", imu);
+		 Timer.delay(0.005);
+		imu.calibrate();
+		imu.reset();
+
 
 		// Front camera
 		UsbCamera usbCamera0 = cameraServer.startAutomaticCapture("Robot Camera0", 0);
@@ -246,11 +244,21 @@ public class Robot extends IterativeRobot {
 //		drivelineSubsystem.rightCounter.reset();
 //		drivelineSubsystem.leftCounter.reset();
 		
-		System.out.println("  right rate =" +rightRate);
-		System.out.println("  left rate =" +leftRate);
-		System.out.println("  left count =" +iothree);	
-		System.out.println("  right count =" +iofour);
+//		System.out.println("  right rate =" +rightRate);
+//		System.out.println("  left rate =" +leftRate);
+//		System.out.println("  left count =" +iothree);	
+//		System.out.println("  right count =" +iofour);
 
+		double IMUrate = imu.getQuaternionX();
+		double IMUyaw = imu.getMagX();
+		double IMUroll = imu.getAngleX();
+		double IMUpitch = imu.getAccelX();
+		
+		System.out.println("  IMU rate =" +IMUrate);
+		System.out.println("  Yaw =" +IMUyaw);
+		System.out.println("  Roll =" +IMUroll);	
+		System.out.println("  Pitch =" +IMUpitch);
+		
 		// get the current state of the shifter
 		Value shifterState = Robot.gearBoxSubsystem.getShooterState();
 		

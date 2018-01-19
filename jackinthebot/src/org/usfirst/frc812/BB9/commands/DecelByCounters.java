@@ -5,37 +5,27 @@ import org.usfirst.frc812.BB9.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AccelByCounters extends Command {
+public class DecelByCounters extends Command {
 
-	public AccelByCounters() {}
+	public DecelByCounters() {}
 
-//	private double Direction =0;
-//	private double StopCount =0;
-//	double righty = Robot.drivelineSubsystem.rightCounter.get() * (-1);
-//	double lefty = Robot.drivelineSubsystem.leftCounter.get();
-//	double CountAvg = ( lefty + righty )/2;
-//	double CounterConstant = StopCount / .4;
-//	double Accel = .1 + (CountAvg / CounterConstant);
-	
 	private double Direction = 0;
 	private double StopCount = 0;
-	private double TopSpeed = 0;
 	double righty = Robot.drivelineSubsystem.rightCounter.get() * (-1);
 	double lefty = Robot.drivelineSubsystem.leftCounter.get();
 	double CountAvg = ( lefty + righty )/2;
-	double CounterConstant = StopCount / (TopSpeed - .1);
-	double Accel = .1 + (CountAvg / CounterConstant);
+	double CounterConstant = StopCount * 1.5;
+	double Decel = (StopCount - CountAvg) / CounterConstant;
 	
 //	//Constructor Method for accelerating by counter
 	
-	public AccelByCounters(double topSpeed, double stopCount) {
+	public DecelByCounters(double stopCount) {
 		
 		requires(Robot.driveTrain);
-		TopSpeed = topSpeed;
 		StopCount = stopCount;
 		setTimeout(15);
 		
-		System.out.println("DriveByCounters, speed= " + Accel + " stop at  " + stopCount   );
+		System.out.println("DriveByCounters, speed= " + Decel + " stop at  " + stopCount   );
 		
 	}
 
@@ -70,10 +60,10 @@ public class AccelByCounters extends Command {
     	
     	double righty = Robot.drivelineSubsystem.rightCounter.get() * (-1);
     	double lefty = Robot.drivelineSubsystem.leftCounter.get();
-    	double CountAvg = ((lefty + righty)/2);
-    	double CounterConstant = StopCount/ (TopSpeed - .1);
-    	double Accel = .1 + ( CountAvg / CounterConstant);
-    	System.out.println("Speed =" + Accel );
+    	double CountAvg = ( lefty + righty )/2;
+    	double CounterConstant = StopCount * 2;
+    	double Decel = (StopCount - CountAvg) / CounterConstant;
+    	System.out.println("Speed =" + Decel );
 //    	System.out.println("Average =" + CountAvg );
     	System.out.println("Left =" + lefty );
     	System.out.println("Right =" + righty );
@@ -89,8 +79,7 @@ public class AccelByCounters extends Command {
 //    		System.out.println("Direction value is" + Direction   );
 //    		System.out.println("Delta value is" + delta   );
 //    		System.out.println("percentError is" + percentError   );
-//    	RobotMap.dtProductionRobotDrive.drive(Accel,Direction);
-    	RobotMap.dtProductionRobotDrive.curvatureDrive(Accel, Direction, true);
+    	RobotMap.dtProductionRobotDrive.curvatureDrive(Decel, Direction, true);
     	//Speed & Direction are between +1 and -1
     	//positive direction =right turn, negative=left turn
     	

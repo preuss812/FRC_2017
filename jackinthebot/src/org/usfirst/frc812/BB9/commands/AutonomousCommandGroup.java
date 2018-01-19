@@ -24,10 +24,9 @@ public class AutonomousCommandGroup extends CommandGroup {
 
 		if (Robot.controlBoxSubsystem.isSwitchCenter()) {
 			System.out.println("switch is center, speed 0.4, curve 0, counterstop 10000");
-			addSequential(new AccelByCounters(5000));
-//			addSequential(new DriveByCounters(.25, 0, 4000));
-//			addSequential(new DecelByCounters(.5, 0, 4000));
-//			addSequential(new DriveByCounters(.5, 0, 4000));
+			addSequential(new AccelByCounters(.5, 5000));	//accelerate to given speed
+//			addSequential(new DriveByCounters(.5, 0, 5000));
+			addSequential(new DecelByCounters(5000));	//decelerate from full speed
 
 			//turn to the side in order to get straight ahead of the peg
 //			addSequential(new DriveByCounters(0.2, 0.2, 10000));

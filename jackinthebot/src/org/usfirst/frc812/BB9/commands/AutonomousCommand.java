@@ -160,7 +160,7 @@ public class AutonomousCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-	RobotMap.dtProductionRobotDrive.drive(0, 0);
+	RobotMap.dtProductionRobotDrive.stopMotor();
     }
 
     // Called when another command which requires one or more of the same

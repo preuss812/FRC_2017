@@ -28,7 +28,7 @@ public class DriveByTime extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	System.out.println("DriveByTime:execute " + Speed + " " + Direction);
-    	RobotMap.dtProductionRobotDrive.drive(Speed, Direction);
+    	RobotMap.dtProductionRobotDrive.curvatureDrive(Speed, Direction,true);
     }
 
     // Make this return true when this Command no longer needs to run execute()

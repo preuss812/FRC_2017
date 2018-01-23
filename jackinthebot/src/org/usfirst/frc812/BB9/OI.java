@@ -76,7 +76,7 @@ public class OI {
         cameraFrontBackButton = new JoystickButton(rightJoystick,1);
         
         
-        // Left Joystick buttons
+        // Left Joystick buttons 
         gearShiftButton            = new JoystickButton(leftJoystick,3);
         raiseLowerBallGathererButton = new JoystickButton(leftJoystick,2);
         gathererMotorStart = new JoystickButton(leftJoystick,4);

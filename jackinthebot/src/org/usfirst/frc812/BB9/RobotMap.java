@@ -144,7 +144,7 @@ public class RobotMap {
       cameraHorizontal = new Servo(9);
       cameraVertical = new Servo(8);
       
-      //grabberSensor = new DigitalInput(5);
+      //grabberSensor = new DigitalInput(5);43hjj
       
       // climbing limit switches
       climberSensor = new DigitalInput(9);

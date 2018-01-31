@@ -724,7 +724,7 @@ public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource {
     // (Pitch, Roll, and Yaw).  This sensor fusion approach effectively
     // combines the individual sensor's best respective properties while
     // mitigating their shortfalls.
-    // 
+    // sweg
     // Design:
     // The Complementary Filter is an algorithm that allows a pair of sensors
     // to contribute differently to a common, composite measurement result.
